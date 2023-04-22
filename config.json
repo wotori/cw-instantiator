@@ -11,6 +11,15 @@
         "type": "instantiate",
         "chainId": "constantine-2",
         "codeId": 654,
+        "txhash": "7446386C42D7DB18A6B5E679560ED62E86A449A8AE439009FFE0A02A934EABC7",
+        "address": "archway1gfkdfa4c6vpa2r28k90p8z5z0vczcyzpncxucvag4qpjdrjxxs6q30yxkw",
+        "admin": "archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9"
+      },
+      {
+        "project": "instantiator",
+        "type": "instantiate",
+        "chainId": "constantine-2",
+        "codeId": 654,
         "txhash": "5E5E7BF9D576B02A7D6F66182928F6FAE832925A1F12B34B73CF2409D50A00F9",
         "address": "archway1jm9w3glw83se9s9w09jfu5sj09wkydvelvwzujv5j3wddcac0enseyalsz",
         "admin": "archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9"
