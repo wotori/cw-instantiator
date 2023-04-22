@@ -28,3 +28,16 @@ The contract address is non-predictable. But it is guaranteed that when emitting
 
 This is translated to a MsgInstantiateContract. sender is automatically filled with the current contract’s address.
 ```
+
+# Workflow
+
+
+- build `archway build --optimize`
+
+- instantiate `archway instantiate --args '{"minter":"archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9", "name":"test", "symbol":"test"}'`
+
+- setup `archway metadata`  
+
+- check history `archway history`
+- query `archway query contract-state smart --args '{"get_count": {}}'`
+- execute `archway tx --args '{"increment": {}}'`

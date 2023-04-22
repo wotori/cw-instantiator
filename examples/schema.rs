@@ -1,12 +1,13 @@
-// examples/schema.rs
-
-use std::{fs::create_dir_all, env::current_dir};
+use std::{env::current_dir, fs::create_dir_all};
 
 use cosmwasm_schema::{export_schema, remove_schemas};
 use schemars::schema_for;
 use serde_json::json;
 
-use instantiator::{msg::InitMsg, state::State};
+use instantiator::{
+    msg::{ExecuteMsg, InitMsg},
+    state::State,
+};
 
 fn main() {
     let mut out_dir = current_dir().unwrap();
@@ -25,4 +26,10 @@ fn main() {
     let schema_json = json!(&schema).to_string();
     println!("\nState schema:\n{}", schema_json);
     export_schema(&schema_for!(State), &out_dir);
+
+    // Generate schema for Execute
+    let schema = schema_for!(ExecuteMsg);
+    let schema_json = json!(&schema).to_string();
+    println!("\nExecuteMsg schema:\n{}", schema_json);
+    export_schema(&schema_for!(ExecuteMsg), &out_dir);
 }
