@@ -1,14 +1,12 @@
 use crate::{msg::ExecuteMsg, state::State, ContractError};
-use cosmwasm_std::WasmMsg;
-use cosmwasm_std::WasmQueryResponse;
-use cosmwasm_std::{Addr, Binary, DepsMut, Env, MessageInfo, Response, StdError, StdResult};
+use cosmwasm_std::{WasmMsg, StdError};
+use cosmwasm_std::{Addr, Binary, DepsMut, Env, MessageInfo, Response, StdResult};
 
 use crate::msg::InitMsg;
 use serde_json::to_vec;
 
 pub fn instantiate_stored_contract(
-    deps: DepsMut,
-    info: MessageInfo,
+    _info: MessageInfo,
     code_id: u64,
     init_msg: Binary,
     admin: Option<Addr>,
@@ -16,24 +14,16 @@ pub fn instantiate_stored_contract(
 ) -> Result<Response, ContractError> {
     let funds = vec![];
     let msg = WasmMsg::Instantiate {
-        admin,
+        admin: admin.map(|addr| addr.to_string()),
         code_id,
         msg: init_msg,
         funds,
         label,
     };
 
-    let instantiate_response = deps.querier.query(&msg.into())?;
-    let contract_address: Addr = match instantiate_response {
-        cosmwasm_std::QueryResponse::Wasm(WasmQueryResponse::InstantiateContract {
-            contract_address,
-        }) => contract_address.into(),
-        _ => return Err(ContractError::ContractInstantiationFailed),
-    };
-
     let response = Response::new()
         .add_attribute("action", "instantiate_stored_contract")
-        .add_attribute("contract_address", contract_address.to_string());
+        .add_message(msg);
 
     Ok(response)
 }
@@ -65,7 +55,7 @@ pub fn instantiate(
 }
 
 pub fn execute(
-    deps: DepsMut,
+    _deps: DepsMut,
     _env: Env,
     info: MessageInfo,
     msg: ExecuteMsg,
@@ -76,6 +66,6 @@ pub fn execute(
             init_msg,
             admin,
             label,
-        } => instantiate_stored_contract(deps, info, code_id, init_msg, admin, label),
+        } => instantiate_stored_contract(info, code_id, init_msg, admin, label),
     }
 }

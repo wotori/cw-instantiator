@@ -1,30 +1,57 @@
-use crate::{
-    contract::{instantiate},
-    msg::InitMsg,
-};
+use crate::{contract::instantiate_stored_contract, instantiate, msg::InitMsg};
 use cosmwasm_std::{
     testing::{mock_dependencies, mock_env, mock_info},
-    coins, Addr,
+    to_binary, Addr,
 };
 
 #[test]
-fn test_instantiate() {
-    let mut deps = mock_dependencies(); // Remove the argument here
-    let env = mock_env();
-    let info = mock_info("creator", &coins(1000, "earth"));
+fn test_instantiate_stored_contract() {
+    let mut deps = mock_dependencies();
 
+    let env = mock_env();
+    let info = mock_info("creator", &[]);
     let init_msg = InitMsg {
-        minter: Addr::unchecked("creator"),
-        symbol: "EXAMPLE".to_string(),
-        name: "Example Token".to_string(),
+        minter: Addr::unchecked("minter"),
+        symbol: "SYMBOL".to_string(),
+        name: "Token Name".to_string(),
     };
 
-    // Instantiate the contract
-    let result = instantiate(deps.as_mut(), env, info, init_msg.clone());
-    assert_eq!(result.unwrap().attributes, vec![
-        ("action", "instantiate"),
-        ("minter", "creator"),
-        ("symbol", "EXAMPLE"),
-        ("name", "Example Token"),
-    ]);
+    // Call instantiate
+    let _ = instantiate(deps.as_mut(), env, info.clone(), init_msg.clone()).unwrap();
+
+    let code_id = 1u64;
+    let init_msg = to_binary(&InitMsg {
+        minter: Addr::unchecked("minter"),
+        symbol: "SYMBOL".to_string(),
+        name: "Token Name".to_string(),
+    })
+    .unwrap();
+    let admin = Some(Addr::unchecked("admin"));
+    let label = "test_contract".to_string();
+
+    // Call instantiate_stored_contract
+    let result = instantiate_stored_contract(
+        info.clone(),
+        code_id,
+        init_msg.clone(),
+        admin.clone(),
+        label.clone(),
+    )
+    .unwrap();
+
+    // Check the result
+    let expected_attributes = vec![("action", "instantiate_stored_contract")];
+
+    let msg = result
+        .messages
+        .into_iter()
+        .next()
+        .expect("Expected WasmMsg::Instantiate");
+
+    // WasmMsg::Instantiate
+
+    assert_eq!(
+        result.attributes, expected_attributes,
+        "Unexpected attributes in the response"
+    );
 }
