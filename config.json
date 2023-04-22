@@ -5,7 +5,24 @@
     "archwayd": {
       "docker": false
     },
-    "deployments": [],
+    "deployments": [
+      {
+        "project": "instantiator",
+        "type": "instantiate",
+        "chainId": "constantine-2",
+        "codeId": 654,
+        "txhash": "5E5E7BF9D576B02A7D6F66182928F6FAE832925A1F12B34B73CF2409D50A00F9",
+        "address": "archway1jm9w3glw83se9s9w09jfu5sj09wkydvelvwzujv5j3wddcac0enseyalsz",
+        "admin": "archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9"
+      },
+      {
+        "project": "instantiator",
+        "type": "store",
+        "chainId": "constantine-2",
+        "codeId": 654,
+        "txhash": "D898DA634729D88D3D7CACF129F733771C85B79FD31E7020005503E97AB3E20B"
+      }
+    ],
     "scripts": {
       "test": "cargo unit-test",
       "build": "cargo build",
@@ -17,7 +34,7 @@
   },
   "network": {
     "name": "constantine",
-    "chainId": "constantine-1",
+    "chainId": "constantine-2",
     "type": "testnet",
     "fees": {
       "feeDenom": "uconst"
@@ -35,11 +52,11 @@
     },
     "urls": {
       "rpc": {
-        "url": "https://rpc.constantine-1.archway.tech",
+        "url": "https://rpc.constantine-2.archway.tech",
         "port": 443
       },
       "faucets": [
-        "https://faucet.constantine-1.archway.tech"
+        "https://faucet.constantine-2.archway.tech"
       ]
     }
   }
