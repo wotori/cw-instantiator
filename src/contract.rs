@@ -1,6 +1,6 @@
 use crate::{msg::ExecuteMsg, state::State, ContractError};
-use cosmwasm_std::{WasmMsg, StdError};
 use cosmwasm_std::{Addr, Binary, DepsMut, Env, MessageInfo, Response, StdResult};
+use cosmwasm_std::{StdError, WasmMsg};
 
 use crate::msg::InitMsg;
 use serde_json::to_vec;
@@ -21,11 +21,10 @@ pub fn instantiate_stored_contract(
         label,
     };
 
-    let response = Response::new()
+    Ok(Response::new()
+        .add_attribute("hello", "world")
         .add_attribute("action", "instantiate_stored_contract")
-        .add_message(msg);
-
-    Ok(response)
+        .add_message(msg))
 }
 
 pub fn instantiate(
@@ -48,6 +47,7 @@ pub fn instantiate(
     );
 
     Ok(Response::new()
+        .add_attribute("hello", "world")
         .add_attribute("action", "instantiate")
         .add_attribute("minter", msg.minter)
         .add_attribute("symbol", msg.symbol)

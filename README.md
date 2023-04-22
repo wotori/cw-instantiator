@@ -28,5 +28,3 @@ For more information on the `Instantiate` method, please refer to the following 
 ## TODO
 
 In the future, a query method will be added to this contract to collect all executions in the smart contract state and receive all instantiated smart contracts within the Instantiator contract.
-
-Thank you for using the Instantiator contract. If you have any questions or feedback, please feel free to contact us.
