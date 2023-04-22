@@ -1,7 +1,11 @@
-use crate::{contract::instantiate_stored_contract, instantiate, msg::InitMsg};
+use crate::{
+    contract::{instantiate, instantiate_stored_contract},
+    msg::InitMsg,
+};
+use cosmwasm_std::SubMsg;
 use cosmwasm_std::{
     testing::{mock_dependencies, mock_env, mock_info},
-    to_binary, Addr,
+    to_binary, Addr, CosmosMsg, WasmMsg,
 };
 
 #[test]
@@ -42,13 +46,24 @@ fn test_instantiate_stored_contract() {
     // Check the result
     let expected_attributes = vec![("action", "instantiate_stored_contract")];
 
-    let msg = result
-        .messages
-        .into_iter()
-        .next()
-        .expect("Expected WasmMsg::Instantiate");
+    let sub_msg = result.messages.into_iter().next().expect("Expected SubMsg");
 
-    // WasmMsg::Instantiate
+    if let SubMsg {
+        msg:
+            CosmosMsg::Wasm(WasmMsg::Instantiate {
+                code_id: _,
+                msg: _,
+                funds: _,
+                label: _,
+                admin: _,
+            }),
+        ..
+    } = sub_msg
+    {
+        // expected_attributes.push(("action", "instantiate_stored_contract"));
+    } else {
+        panic!("Unexpected message");
+    }
 
     assert_eq!(
         result.attributes, expected_attributes,
