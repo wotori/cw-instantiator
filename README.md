@@ -1,43 +1,32 @@
-```
-As I found at the moment - it is impossible to directly instantiate another contract from within a contract on the CosmWasm platform.
+# Instantiator
 
-In the Cosmos SDK and CosmWasm, the process of instantiating a new contract must be done off-chain or through an external transaction. The reason behind this limitation is that smart contracts in the Cosmos SDK are designed to be isolated from each other to enhance security and maintainability.
+The Instantiator contract was developed during the DoraHacks hackathon for Archway Network and the NFText dApp. This contract allows users to instantiate new instances of smart contracts using the already stored .wasm file. The main purpose of this contract is to enable users to instantiate CW721 contracts for their art collections that can be used on NFT platforms.
+## Workflow
 
-As an alternative, I can create a separate transaction that instantiates the new contract and submit that transaction from a client or another off-chain application. 
+1. Create the base64 JSON file with data for contract instantiation and pass it as an `init_msg` parameter.
 
-So seems I have to store users contracts with web2 features like database for query later all users instantiations and displaying them in ui... 
-```
+2. Build the contract using the `archway build --optimize` command.
 
-```
-seems it is possible 
-https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.WasmMsg.html
-Instantiate
-Fields
-admin: Option<String>
-code_id: u64
-msg: Binary
-msg is the JSON-encoded InstantiateMsg struct (as raw Binary)
+3. Instantiate the contract using the `archway instantiate` command, passing in the necessary parameters including the `code_id` of the stored .wasm file.
 
-funds: Vec<Coin>
-label: String
-A human-readbale label for the contract
+4. Setup metadata for the contract using the `archway metadata` command.
 
-Instantiates a new contracts from previously uploaded Wasm code.
+5. Check the history of the contract using the `archway history` command.
 
-The contract address is non-predictable. But it is guaranteed that when emitting the same Instantiate message multiple times, multiple instances on different addresses will be generated. See also Instantiate2.
+6. Query the contract state using the `archway query` command.
 
-This is translated to a MsgInstantiateContract. sender is automatically filled with the current contract’s address.
-```
+7. Execute transactions using the `archway tx` command, passing in the necessary parameters.
 
-# Workflow
+instantiate example: `archway instantiate --args '{"minter":"archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9", "name":"test", "symbol":"test"}'`
 
+execute example: `archway tx --args '{"instantiate_stored_contract": {"code_id":633, "init_msg": "eyJtaW50ZXIiOiJhcmNod2F5MXFxNjV3amVmdTZubnF4MG42dnZ4NXh6ejN4bWN1eTc1dmF1aHE5IiwgIm5hbWUiOiJ0ZXN0IiwgInN5bWJvbCI6InRlc3QifQ==", "admin": "archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9", "label":"test"}}'`
 
-- build `archway build --optimize`
+## Instantiate Method
 
-- instantiate `archway instantiate --args '{"minter":"archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9", "name":"test", "symbol":"test"}'`
+For more information on the `Instantiate` method, please refer to the following [documentation](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.WasmMsg.html).
 
-- setup `archway metadata`  
+## TODO
 
-- check history `archway history`
-- query `archway query contract-state smart --args '{"get_count": {}}'`
-- execute `archway tx --args '{"increment": {}}'`
+In the future, a query method will be added to this contract to collect all executions in the smart contract state and receive all instantiated smart contracts within the Instantiator contract.
+
+Thank you for using the Instantiator contract. If you have any questions or feedback, please feel free to contact us.

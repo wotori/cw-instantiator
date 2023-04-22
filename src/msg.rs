@@ -1,4 +1,4 @@
-use cosmwasm_std::Addr;
+use cosmwasm_std::{Addr, Binary};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
@@ -16,7 +16,7 @@ pub struct InitMsg {
 pub enum ExecuteMsg {
     InstantiateStoredContract {
         code_id: u64,
-        init_msg: cosmwasm_std::Binary,
+        init_msg: Binary,
         admin: Option<Addr>,
         label: String,
     },

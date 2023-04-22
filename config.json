@@ -10,26 +10,17 @@
         "project": "instantiator",
         "type": "instantiate",
         "chainId": "constantine-2",
-        "codeId": 654,
-        "txhash": "7446386C42D7DB18A6B5E679560ED62E86A449A8AE439009FFE0A02A934EABC7",
-        "address": "archway1gfkdfa4c6vpa2r28k90p8z5z0vczcyzpncxucvag4qpjdrjxxs6q30yxkw",
-        "admin": "archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9"
-      },
-      {
-        "project": "instantiator",
-        "type": "instantiate",
-        "chainId": "constantine-2",
-        "codeId": 654,
-        "txhash": "5E5E7BF9D576B02A7D6F66182928F6FAE832925A1F12B34B73CF2409D50A00F9",
-        "address": "archway1jm9w3glw83se9s9w09jfu5sj09wkydvelvwzujv5j3wddcac0enseyalsz",
+        "codeId": 655,
+        "txhash": "67130BF5F942C0CED189985202B32E7F4E89C273324E9DDC92B700AE45736D3A",
+        "address": "archway1w2wzc5a3a5zsmplq82wq73hn8g7q26s8wjwrtwsfz65cnwdmp5xqc6dfqp",
         "admin": "archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9"
       },
       {
         "project": "instantiator",
         "type": "store",
         "chainId": "constantine-2",
-        "codeId": 654,
-        "txhash": "D898DA634729D88D3D7CACF129F733771C85B79FD31E7020005503E97AB3E20B"
+        "codeId": 655,
+        "txhash": "6757B88EF81B74633919689522109C88A51E0B9A49626BD504C8C396455A2C9D"
       }
     ],
     "scripts": {
