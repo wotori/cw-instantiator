@@ -25,6 +25,38 @@ execute example: `archway tx --args '{"instantiate_stored_contract": {"code_id":
 
 For more information on the `Instantiate` method, please refer to the following [documentation](https://docs.rs/cosmwasm-std/latest/cosmwasm_std/enum.WasmMsg.html).
 
+## JS implementation
+```js
+let newSmartContractData = {
+  minter: walletAddress,
+  name: collectionName,
+  symbol: collectionSymbol,
+};
+
+const base64Str = btoa(JSON.stringify(newSmartContractData));
+
+let instantiateMessage = {
+  instantiate_stored_contract: {
+    code_id: Number(CW721_CODE_ID),
+    admin: walletAddress,
+    init_msg: base64Str,
+    label: "CW721-USER-COLLECTION",
+  },
+};
+
+let memo = undefined
+let coins = undefined
+
+await client.execute(
+  walletAddress,
+  contractAddress, // stored instantiator contract
+  instantiateMessage,
+  calculateFee(600_000, "20uconst"),
+  memo,
+  coins
+)
+```
+
 ## TODO
 
 In the future, a query method will be added to this contract to collect all executions in the smart contract state and receive all instantiated smart contracts within the Instantiator contract.
