@@ -17,7 +17,7 @@ The Instantiator contract was developed during the DoraHacks hackathon for Archw
 
 7. Execute transactions using the `archway tx` command, passing in the necessary parameters.
 
-instantiate example: `archway instantiate --args '{"minter":"archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9", "name":"test", "symbol":"test"}'`
+instantiate example: `archway instantiate --args '{"minter":"archway1uwew6p8k70xa2lkzeujqcw430uky49zthsvc0y", "name":"test"}'`
 
 execute example: `archway tx --args '{"instantiate_stored_contract": {"code_id":633, "init_msg": "eyJtaW50ZXIiOiJhcmNod2F5MXFxNjV3amVmdTZubnF4MG42dnZ4NXh6ejN4bWN1eTc1dmF1aHE5IiwgIm5hbWUiOiJ0ZXN0IiwgInN5bWJvbCI6InRlc3QifQ==", "admin": "archway1qq65wjefu6nnqx0n6vvx5xzz3xmcuy75vauhq9", "label":"test"}}'`
 

@@ -35,7 +35,6 @@ pub fn instantiate(
 ) -> StdResult<Response> {
     let state = State {
         minter: msg.minter.clone(),
-        symbol: msg.symbol.clone(),
         name: msg.name.clone(),
     };
 
@@ -47,10 +46,8 @@ pub fn instantiate(
     );
 
     Ok(Response::new()
-        .add_attribute("hello", "world")
         .add_attribute("action", "instantiate")
         .add_attribute("minter", msg.minter)
-        .add_attribute("symbol", msg.symbol)
         .add_attribute("name", msg.name))
 }
 
